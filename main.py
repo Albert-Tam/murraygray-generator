@@ -7,7 +7,7 @@ API_URL = "https://murraygray-server.herokuapp.com/"
 def course_name(description):
     my_data = {"description": description}
     response = requests.post(API_URL + "course-name", json=my_data).json()
-    return response["answer"]
+    return response["course_name"]
 
 
 st.title("Course Name Generator")
