@@ -4,19 +4,24 @@ import requests
 API_URL = "https://murraygray-server.herokuapp.com/"
 
 
-def course_name(description):
+def course_name(description, endpoint):
     my_data = {"description": description}
-    response = requests.post(API_URL + "course-name", json=my_data).json()
+    response = requests.post(API_URL + endpoint, json=my_data).json()
     return response["course_name"]
 
 
 st.title("Course Name Generator")
 st.markdown("""### Transform descriptions into course names with the power of AI.""")
 with st.form(key='course_name_from'):
+    category = st.selectbox('Category', ('Health & Wellness', 'Other'))
+    if category == "Health & Wellness":
+        endpoint = "health-wellness"
+    else:
+        endpoint = "course-name"
     description = st.text_area(label="Course description.")
     submit = st.form_submit_button(label='Submit')
     if submit:
-        output = course_name(description)
+        output = course_name(description, endpoint)
         st.markdown(output)
 
 
